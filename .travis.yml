@@ -1,0 +1,9 @@
+language: python
+python:
+  - "3.9"
+  - "3.10"
+  - "3.11"
+install:
+  - pip install requests
+script:
+  - python -m unittest discover
