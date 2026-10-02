@@ -1,6 +1,6 @@
 import requests
 import json
-import unittest
+from unittest import mock
 
 def getUserInfo(username):
     repos = requests.get(f'https://api.github.com/users/{username}/repos')
