@@ -20,7 +20,7 @@ class TestInfo(unittest.TestCase):
      def testrepo(self):
         self.assertEqual(getUserInfo('raecelano'),('Repo: CPE-322, Commits: 5'))
      def testrepo2(self):
-        self.assertEqual(getUserInfo('DOGq3'),('Repo: DOGq3, Commits: 80'))
+        self.assertEqual(getUserInfo('DOGq3'),('Repo: DOGq3, Commits: 30'))
 
 if __name__ == '__main__':
     unittest.main()
