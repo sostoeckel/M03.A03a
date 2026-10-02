@@ -1,6 +1,8 @@
 import requests
 import json
-from unittest import mock
+import unittest
+from unittest.mock import Mock
+from unittest.mock import patch
 
 def getUserInfo(username):
     repos = requests.get(f'https://api.github.com/users/{username}/repos')
@@ -17,10 +19,19 @@ def getUserInfo(username):
 getUserInfo('sostoeckel')
 
 class TestInfo(unittest.TestCase):
-     def testrepo(self):
-        self.assertEqual(getUserInfo('raecelano'),('Repo: CPE-322, Commits: 5'))
-     def testrepo2(self):
-        self.assertEqual(getUserInfo('DOGq3'),('Repo: DOGq3, Commits: 30'))
-
+    @patch("requests.get")
+    def test_repo(self, mock_get):
+        response = Mock()
+        response.text = json.dumps([])
+        mock_get.return_value = response
+        mock_get.side_effect = [Mock(json=Mock(return_value=[{'name': 'CPE-322'}])),Mock(json=Mock(return_value=[
+                {'test': '1'},
+                {'test': '2'},
+                {'test': '3'}
+            ]))
+        ]
+        result = getUserInfo("raecelano")
+        self.assertEqual(result,("Repo: CPE-322, Commits: 3"))
+        self.assertEqual(mock_get.call_count, 2)
 if __name__ == '__main__':
     unittest.main()
