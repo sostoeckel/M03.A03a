@@ -1,5 +1,6 @@
 import requests
 import json
+import unittest
 
 def getUserInfo(username):
     repos = requests.get(f'https://api.github.com/users/{username}/repos')
@@ -11,5 +12,15 @@ def getUserInfo(username):
         commit = 0
         for commits in out:
                 commit += 1
-        print(f'Repos: {repositories['name']}, Commits: {commit}')
+        repocom = (f'Repo: {repositories['name']}, Commits: {commit}')
+    return repocom
 getUserInfo('sostoeckel')
+
+class TestInfo(unittest.TestCase):
+     def testrepo(self):
+        self.assertEqual(getUserInfo('raecelano'),('Repo: CPE-322, Commits: 5'))
+     def testrepo2(self):
+        self.assertEqual(getUserInfo('DOGq3'),('Repo: DOGq3, Commits: 80'))
+
+if __name__ == '__main__':
+    unittest.main()
